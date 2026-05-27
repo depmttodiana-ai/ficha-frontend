@@ -51,43 +51,43 @@
 	}
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center px-4">
-	<div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
+<div class="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-950 dark:to-slate-900 flex items-center justify-center px-4">
+	<div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-md p-8">
 		<div class="text-center mb-8">
-			<h1 class="text-2xl font-bold text-slate-800">Ficha Técnica</h1>
-			<p class="text-sm text-slate-500 mt-1">{isRegister ? 'Crear cuenta' : 'Iniciar sesión'}</p>
+			<h1 class="text-2xl font-bold text-slate-800 dark:text-slate-100">Ficha Técnica</h1>
+			<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">{isRegister ? 'Crear cuenta' : 'Iniciar sesión'}</p>
 		</div>
 
 		<form onsubmit={handleSubmit} class="space-y-5">
 			{#if isRegister}
 				<div>
-					<label class="block text-sm font-medium text-slate-700 mb-1">Nombre</label>
+					<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Nombre</label>
 					<input
 						type="text"
 						bind:value={nombre}
 						required
-						class="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+						class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
 					/>
 				</div>
 			{/if}
 
 			<div>
-				<label class="block text-sm font-medium text-slate-700 mb-1">Email</label>
+				<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email</label>
 				<input
 					type="email"
 					bind:value={email}
 					required
-					class="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+					class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
 				/>
 			</div>
 
 			<div>
-				<label class="block text-sm font-medium text-slate-700 mb-1">Contraseña</label>
+				<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Contraseña</label>
 				<input
 					type="password"
 					bind:value={password}
 					required
-					class="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+					class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
 				/>
 			</div>
 
@@ -100,11 +100,11 @@
 			</button>
 		</form>
 
-		<div class="mt-6 text-center text-sm text-slate-500">
+		<div class="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
 			{isRegister ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?'}
 			<button
 				onclick={() => { isRegister = !isRegister; password = ''; }}
-				class="text-blue-600 hover:underline ml-1 font-medium"
+				class="text-blue-600 dark:text-blue-400 hover:underline ml-1 font-medium"
 			>
 				{isRegister ? 'Inicia sesión' : 'Regístrate'}
 			</button>

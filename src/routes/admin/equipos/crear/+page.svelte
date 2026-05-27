@@ -120,29 +120,29 @@
 
 <div class="max-w-4xl mx-auto">
 	<div class="flex items-center justify-between mb-4 md:mb-6">
-		<h2 class="text-lg md:text-xl font-semibold text-slate-800">Nuevo Equipo</h2>
-		<a href="/admin/equipos" class="text-xs md:text-sm text-blue-600 hover:underline">← Volver</a>
+		<h2 class="text-lg md:text-xl font-semibold text-slate-800 dark:text-slate-100">Nuevo Equipo</h2>
+		<a href="/admin/equipos" class="text-xs md:text-sm text-blue-600 dark:text-blue-400 hover:underline">← Volver</a>
 	</div>
 
 	<form onsubmit={handleSubmit} class="space-y-4 md:space-y-6">
-		<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6">
-			<h3 class="font-semibold text-slate-800 text-sm md:text-base mb-3 md:mb-4">Información básica</h3>
+		<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 md:p-6">
+			<h3 class="font-semibold text-slate-800 dark:text-slate-100 text-sm md:text-base mb-3 md:mb-4">Información básica</h3>
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
 				<div>
-					<label class="block text-sm font-medium text-slate-700 mb-1">Código *</label>
-					<input type="text" bind:value={form.codigo_equipo} required class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm" />
+					<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Código *</label>
+					<input type="text" bind:value={form.codigo_equipo} required class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm" />
 				</div>
 				<div>
-					<label class="block text-sm font-medium text-slate-700 mb-1">Nombre *</label>
-					<input type="text" bind:value={form.nombre} required class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm" />
+					<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Nombre *</label>
+					<input type="text" bind:value={form.nombre} required class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm" />
 				</div>
 				<div class="md:col-span-2">
-					<label class="block text-sm font-medium text-slate-700 mb-1">Descripción</label>
-					<textarea bind:value={form.descripcion} rows={2} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm"></textarea>
+					<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Descripción</label>
+					<textarea bind:value={form.descripcion} rows={2} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm"></textarea>
 				</div>
 				<div>
-					<label class="block text-sm font-medium text-slate-700 mb-1">Área</label>
-					<select bind:value={form.area_id} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm">
+					<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Área</label>
+					<select bind:value={form.area_id} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm">
 						<option value="">Sin área</option>
 						{#each areas as a}
 							<option value={a.id}>{a.nombre}</option>
@@ -150,8 +150,8 @@
 					</select>
 				</div>
 				<div>
-					<label class="block text-sm font-medium text-slate-700 mb-1">Clasificación</label>
-					<select bind:value={form.clasificacion_id} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm">
+					<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Clasificación</label>
+					<select bind:value={form.clasificacion_id} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm">
 						<option value="">Sin clasificación</option>
 						{#each clasificaciones as c}
 							<option value={c.id}>{c.nombre}</option>
@@ -159,8 +159,8 @@
 					</select>
 				</div>
 				<div>
-					<label class="block text-sm font-medium text-slate-700 mb-1">Equipo padre</label>
-					<select bind:value={form.equipo_padre_id} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm">
+					<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Equipo padre</label>
+					<select bind:value={form.equipo_padre_id} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm">
 						<option value="">Sin padre (nivel 1)</option>
 						{#each equiposPadre as ep}
 							<option value={ep.id}>{ep.codigo_equipo} - {ep.nombre}</option>
@@ -168,8 +168,8 @@
 					</select>
 				</div>
 				<div>
-					<label class="block text-sm font-medium text-slate-700 mb-1">Estado</label>
-					<select bind:value={form.estado} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm">
+					<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Estado</label>
+					<select bind:value={form.estado} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm">
 						<option value="OPERATIVO">Operativo</option>
 						<option value="PARADO">Parado</option>
 						<option value="REPARACION">Reparación</option>
@@ -179,31 +179,31 @@
 			</div>
 		</div>
 
-		<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6">
-			<h3 class="font-semibold text-slate-800 text-sm md:text-base mb-3 md:mb-4">Especificaciones técnicas</h3>
+		<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 md:p-6">
+			<h3 class="font-semibold text-slate-800 dark:text-slate-100 text-sm md:text-base mb-3 md:mb-4">Especificaciones técnicas</h3>
 			<div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-				<div class="col-span-2 md:col-span-1"><label class="block text-sm font-medium text-slate-700 mb-1">Marca</label><input type="text" bind:value={form.marca} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm" /></div>
-				<div><label class="block text-sm font-medium text-slate-700 mb-1">Modelo</label><input type="text" bind:value={form.modelo} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm" /></div>
-				<div><label class="block text-sm font-medium text-slate-700 mb-1">N° Serie</label><input type="text" bind:value={form.numero_serie} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm" /></div>
-				<div><label class="block text-sm font-medium text-slate-700 mb-1">Potencia</label><input type="text" bind:value={form.potencia} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm" /></div>
-				<div><label class="block text-sm font-medium text-slate-700 mb-1">Voltaje</label><input type="text" bind:value={form.voltaje} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm" /></div>
-				<div><label class="block text-sm font-medium text-slate-700 mb-1">RPM</label><input type="text" bind:value={form.rpm} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm" /></div>
-				<div><label class="block text-sm font-medium text-slate-700 mb-1">Capacidad</label><input type="text" bind:value={form.capacidad} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm" /></div>
-				<div><label class="block text-sm font-medium text-slate-700 mb-1">Año</label><input type="number" bind:value={form.anio_fabricacion} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm" /></div>
-				<div><label class="block text-sm font-medium text-slate-700 mb-1">Proveedor</label><input type="text" bind:value={form.proveedor} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm" /></div>
-				<div class="col-span-2 md:col-span-1"><label class="block text-sm font-medium text-slate-700 mb-1">Fecha adq.</label><input type="date" bind:value={form.fecha_adquisicion} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm" /></div>
+				<div class="col-span-2 md:col-span-1"><label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Marca</label><input type="text" bind:value={form.marca} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm" /></div>
+				<div><label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Modelo</label><input type="text" bind:value={form.modelo} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm" /></div>
+				<div><label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">N° Serie</label><input type="text" bind:value={form.numero_serie} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm" /></div>
+				<div><label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Potencia</label><input type="text" bind:value={form.potencia} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm" /></div>
+				<div><label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Voltaje</label><input type="text" bind:value={form.voltaje} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm" /></div>
+				<div><label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">RPM</label><input type="text" bind:value={form.rpm} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm" /></div>
+				<div><label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Capacidad</label><input type="text" bind:value={form.capacidad} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm" /></div>
+				<div><label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Año</label><input type="number" bind:value={form.anio_fabricacion} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm" /></div>
+				<div><label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Proveedor</label><input type="text" bind:value={form.proveedor} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm" /></div>
+				<div class="col-span-2 md:col-span-1"><label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Fecha adq.</label><input type="date" bind:value={form.fecha_adquisicion} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm" /></div>
 			</div>
 		</div>
 
-		<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6">
-			<h3 class="font-semibold text-slate-800 text-sm md:text-base mb-3 md:mb-4">Fotos (máx 5)</h3>
-			<input type="file" accept="image/*" multiple onchange={handleFotoChange} class="text-sm w-full" />
+		<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 md:p-6">
+			<h3 class="font-semibold text-slate-800 dark:text-slate-100 text-sm md:text-base mb-3 md:mb-4">Fotos (máx 5)</h3>
+			<input type="file" accept="image/*" multiple onchange={handleFotoChange} class="text-sm w-full dark:text-slate-300" />
 			{#if fotoPreviews.length > 0}
 				<div class="grid grid-cols-3 md:grid-cols-5 gap-2 md:gap-3 mt-3">
 					{#each fotoPreviews as preview, i}
 						<div class="relative">
-							<img src={preview} alt="Foto" class="w-full h-16 md:h-24 object-cover rounded-lg border" />
-							<select bind:value={tiposFoto[i]} class="w-full mt-1 text-xs rounded border border-slate-300 px-1 py-1">
+							<img src={preview} alt="Foto" class="w-full h-16 md:h-24 object-cover rounded-lg border dark:border-slate-600" />
+							<select bind:value={tiposFoto[i]} class="w-full mt-1 text-xs rounded border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-1 py-1">
 								<option value="GENERAL">General</option>
 								<option value="PLACA">Placa</option>
 								<option value="FALLA">Falla</option>
@@ -216,13 +216,13 @@
 			{/if}
 		</div>
 
-		<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6">
-			<h3 class="font-semibold text-slate-800 text-sm md:text-base mb-3 md:mb-4">Observaciones</h3>
-			<textarea bind:value={form.observaciones} rows={3} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm"></textarea>
+		<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 md:p-6">
+			<h3 class="font-semibold text-slate-800 dark:text-slate-100 text-sm md:text-base mb-3 md:mb-4">Observaciones</h3>
+			<textarea bind:value={form.observaciones} rows={3} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm"></textarea>
 		</div>
 
 		<div class="flex flex-col sm:flex-row justify-end gap-2 md:gap-3">
-			<a href="/admin/equipos" class="w-full sm:w-auto text-center px-6 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 text-sm font-medium rounded-lg transition-colors">Cancelar</a>
+			<a href="/admin/equipos" class="w-full sm:w-auto text-center px-6 py-2.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-sm font-medium rounded-lg transition-colors">Cancelar</a>
 			<button type="submit" disabled={loading} class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-sm font-medium rounded-lg transition-colors">
 				{loading ? 'Guardando...' : 'Crear Equipo'}
 			</button>

@@ -92,47 +92,47 @@
 
 <div class="space-y-4 md:space-y-6">
 	<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
-		<h2 class="text-lg md:text-xl font-semibold text-slate-800">Usuarios</h2>
+		<h2 class="text-lg md:text-xl font-semibold text-slate-800 dark:text-slate-100">Usuarios</h2>
 		<button onclick={openCreate} class="inline-block text-center px-3 md:px-4 py-1.5 md:py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs md:text-sm font-medium rounded-lg transition-colors whitespace-nowrap">
 			+ Nuevo
 		</button>
 	</div>
 
-	<div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+	<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
 		<div class="overflow-x-auto">
-			<table class="min-w-[500px] w-full divide-y divide-slate-200">
-				<thead class="bg-slate-50">
+			<table class="min-w-[500px] w-full divide-y divide-slate-200 dark:divide-slate-700">
+				<thead class="bg-slate-50 dark:bg-slate-700">
 					<tr>
-						<th class="px-2 md:px-4 py-2 md:py-3 text-left text-xs font-semibold text-slate-500 uppercase">Nombre</th>
-						<th class="px-2 md:px-4 py-2 md:py-3 text-left text-xs font-semibold text-slate-500 uppercase">Email</th>
-						<th class="px-2 md:px-4 py-2 md:py-3 text-left text-xs font-semibold text-slate-500 uppercase">Rol</th>
-						<th class="hidden sm:table-cell px-2 md:px-4 py-2 md:py-3 text-left text-xs font-semibold text-slate-500 uppercase">Activo</th>
-						<th class="px-2 md:px-4 py-2 md:py-3 text-left text-xs font-semibold text-slate-500 uppercase">Acciones</th>
+						<th class="px-2 md:px-4 py-2 md:py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-300 uppercase">Nombre</th>
+						<th class="px-2 md:px-4 py-2 md:py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-300 uppercase">Email</th>
+						<th class="px-2 md:px-4 py-2 md:py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-300 uppercase">Rol</th>
+						<th class="hidden sm:table-cell px-2 md:px-4 py-2 md:py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-300 uppercase">Activo</th>
+						<th class="px-2 md:px-4 py-2 md:py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-300 uppercase">Acciones</th>
 					</tr>
 				</thead>
-				<tbody class="divide-y divide-slate-200">
+				<tbody class="divide-y divide-slate-200 dark:divide-slate-700">
 					{#if loading}
-						<tr><td colspan="5" class="px-2 md:px-4 py-8 md:py-12 text-center text-slate-500 text-sm">Cargando...</td></tr>
+						<tr><td colspan="5" class="px-2 md:px-4 py-8 md:py-12 text-center text-slate-500 dark:text-slate-400 text-sm">Cargando...</td></tr>
 					{:else if usuarios.length === 0}
-						<tr><td colspan="5" class="px-2 md:px-4 py-8 md:py-12 text-center text-slate-400 text-sm">Sin usuarios</td></tr>
+						<tr><td colspan="5" class="px-2 md:px-4 py-8 md:py-12 text-center text-slate-400 dark:text-slate-500 text-sm">Sin usuarios</td></tr>
 					{:else}
 						{#each usuarios as u}
-							<tr class="hover:bg-slate-50">
-								<td class="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm font-medium text-slate-800">{u.nombre}</td>
-								<td class="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm text-slate-600">{u.email}</td>
+							<tr class="hover:bg-slate-50 dark:hover:bg-slate-700">
+								<td class="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm font-medium text-slate-800 dark:text-slate-100">{u.nombre}</td>
+								<td class="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm text-slate-600 dark:text-slate-300">{u.email}</td>
 								<td class="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm">
 									<span class="px-1.5 md:px-2 py-0.5 rounded-full text-xs font-medium
-										{u.rol === 'COORDINADOR' ? 'bg-purple-100 text-purple-800' : ''}
-										{u.rol === 'SUPERVISOR' ? 'bg-blue-100 text-blue-800' : ''}
-										{u.rol === 'USUARIO' ? 'bg-slate-100 text-slate-600' : ''}
+										{u.rol === 'COORDINADOR' ? 'bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-300' : ''}
+										{u.rol === 'SUPERVISOR' ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300' : ''}
+										{u.rol === 'USUARIO' ? 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300' : ''}
 									">{u.rol}</span>
 								</td>
 								<td class="hidden sm:table-cell px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm">
-									<span class="{u.activo ? 'text-green-600' : 'text-red-600'}">{u.activo ? 'Sí' : 'No'}</span>
+									<span class="{u.activo ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}">{u.activo ? 'Sí' : 'No'}</span>
 								</td>
 								<td class="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm whitespace-nowrap">
-									<button onclick={() => openEdit(u.id)} class="text-blue-600 hover:underline mr-2 md:mr-3">Editar</button>
-									<button onclick={() => handleDelete(u.id)} class="text-red-600 hover:underline">Eliminar</button>
+									<button onclick={() => openEdit(u.id)} class="text-blue-600 dark:text-blue-400 hover:underline mr-2 md:mr-3">Editar</button>
+									<button onclick={() => handleDelete(u.id)} class="text-red-600 dark:text-red-400 hover:underline">Eliminar</button>
 								</td>
 							</tr>
 						{/each}
@@ -146,20 +146,20 @@
 <Modal bind:open={showModal} title={editing ? 'Editar Usuario' : 'Nuevo Usuario'} onConfirm={handleSave}>
 	<div class="space-y-4">
 		<div>
-			<label class="block text-sm font-medium text-slate-700 mb-1">Nombre *</label>
-			<input type="text" bind:value={formNombre} required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+			<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Nombre *</label>
+			<input type="text" bind:value={formNombre} required class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2 text-sm" />
 		</div>
 		<div>
-			<label class="block text-sm font-medium text-slate-700 mb-1">Email *</label>
-			<input type="email" bind:value={formEmail} required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+			<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email *</label>
+			<input type="email" bind:value={formEmail} required class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2 text-sm" />
 		</div>
 		<div>
-			<label class="block text-sm font-medium text-slate-700 mb-1">{editing ? 'Contraseña (dejar vacío para no cambiar)' : 'Contraseña *'}</label>
-			<input type="password" bind:value={formPassword} required={!editing} class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+			<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{editing ? 'Contraseña (dejar vacío para no cambiar)' : 'Contraseña *'}</label>
+			<input type="password" bind:value={formPassword} required={!editing} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2 text-sm" />
 		</div>
 		<div>
-			<label class="block text-sm font-medium text-slate-700 mb-1">Rol</label>
-			<select bind:value={formRol} class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm">
+			<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Rol</label>
+			<select bind:value={formRol} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2 text-sm">
 				<option value="COORDINADOR">Coordinador</option>
 				<option value="SUPERVISOR">Supervisor</option>
 				<option value="USUARIO">Usuario</option>
@@ -167,8 +167,8 @@
 		</div>
 		{#if editing}
 			<div class="flex items-center gap-2">
-				<input type="checkbox" bind:checked={formActivo} id="activo" class="rounded border-slate-300" />
-				<label for="activo" class="text-sm text-slate-700">Activo</label>
+				<input type="checkbox" bind:checked={formActivo} id="activo" class="rounded border-slate-300 dark:border-slate-600" />
+				<label for="activo" class="text-sm text-slate-700 dark:text-slate-300">Activo</label>
 			</div>
 		{/if}
 	</div>

@@ -5,11 +5,11 @@
 
 	function color(): string {
 		const s = status.toUpperCase();
-		if (['OPERATIVO', 'REALIZADO'].includes(s)) return 'bg-green-100 text-green-800';
-		if (['PARADO', 'PENDIENTE'].includes(s)) return 'bg-yellow-100 text-yellow-800';
-		if (['REPARACION'].includes(s)) return 'bg-blue-100 text-blue-800';
-		if (['BAJA'].includes(s)) return 'bg-red-100 text-red-800';
-		return 'bg-slate-100 text-slate-600';
+		if (['OPERATIVO', 'REALIZADO'].includes(s)) return 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300';
+		if (['PARADO', 'PENDIENTE'].includes(s)) return 'bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300';
+		if (['REPARACION'].includes(s)) return 'bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300';
+		if (['BAJA'].includes(s)) return 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300';
+		return 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300';
 	}
 
 	function display(): string {

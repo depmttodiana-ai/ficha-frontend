@@ -45,13 +45,13 @@
 
 <!-- Sidebar: desktop fixed / mobile overlay -->
 <aside
-	class="bg-slate-900 text-white flex flex-col transition-all duration-200
+	class="bg-slate-900 dark:bg-slate-950 text-white flex flex-col transition-all duration-200
 		{$page.url.pathname.startsWith('/login') && 'hidden'}
 		md:relative md:w-64
 		fixed inset-y-0 left-0 z-30 w-64
 		{mobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}"
 >
-	<div class="flex items-center justify-between p-4 border-b border-slate-700">
+	<div class="flex items-center justify-between p-4 border-b border-slate-700 dark:border-slate-800">
 		<span class="font-bold text-lg">Ficha Técnica</span>
 		<button onclick={closeNav} class="text-slate-400 hover:text-white text-xl px-1 md:hidden">
 			✕
@@ -64,7 +64,7 @@
 				href={item.href}
 				onclick={closeNav}
 				class="flex items-center gap-3 px-4 py-3 text-sm transition-colors
-					{$page.url.pathname.startsWith(item.href) ? 'bg-slate-700 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}"
+					{$page.url.pathname.startsWith(item.href) ? 'bg-slate-700 dark:bg-slate-600 text-white' : 'text-slate-300 dark:text-slate-400 hover:bg-slate-800 dark:hover:bg-slate-700 hover:text-white'}"
 			>
 				<span class="text-lg shrink-0">{item.icon}</span>
 				<span>{item.label}</span>
@@ -72,7 +72,7 @@
 		{/each}
 	</nav>
 
-	<div class="p-4 border-t border-slate-700">
+	<div class="p-4 border-t border-slate-700 dark:border-slate-800">
 		{#if $currentUser}
 			<div class="text-sm text-slate-400 mb-2 truncate">{$currentUser.nombre}</div>
 		{/if}

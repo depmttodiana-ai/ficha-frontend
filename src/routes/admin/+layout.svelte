@@ -26,7 +26,7 @@
 	});
 </script>
 
-<div class="flex h-screen bg-slate-100">
+<div class="flex h-screen bg-slate-100 dark:bg-slate-900">
 	<Sidebar />
 	<div class="flex-1 flex flex-col overflow-hidden md:ml-0">
 		<Header />

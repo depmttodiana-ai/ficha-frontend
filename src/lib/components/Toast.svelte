@@ -9,10 +9,10 @@
 			in:slide={{ duration: 200 }}
 			out:fade={{ duration: 200 }}
 			class="px-4 py-3 rounded-lg shadow-lg text-white text-sm font-medium
-				{toast.type === 'success' && 'bg-green-600'}
-				{toast.type === 'error' && 'bg-red-600'}
-				{toast.type === 'warning' && 'bg-yellow-500 text-black'}
-				{toast.type === 'info' && 'bg-blue-600'}"
+				{toast.type === 'success' && 'bg-green-600 dark:bg-green-700'}
+				{toast.type === 'error' && 'bg-red-600 dark:bg-red-700'}
+				{toast.type === 'warning' && 'bg-yellow-500 dark:bg-yellow-600 text-black'}
+				{toast.type === 'info' && 'bg-blue-600 dark:bg-blue-700'}"
 		>
 			{toast.message}
 		</div>

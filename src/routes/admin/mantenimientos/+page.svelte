@@ -40,53 +40,53 @@
 
 <div class="space-y-4 md:space-y-6">
 	<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
-		<h2 class="text-lg md:text-xl font-semibold text-slate-800">Mantenimientos</h2>
+		<h2 class="text-lg md:text-xl font-semibold text-slate-800 dark:text-slate-100">Mantenimientos</h2>
 		<a href="/admin/mantenimientos/crear" class="inline-block text-center px-3 md:px-4 py-1.5 md:py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs md:text-sm font-medium rounded-lg transition-colors whitespace-nowrap">
 			+ Nuevo
 		</a>
 	</div>
 
-	<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-3 md:p-4">
+	<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 md:p-4">
 		<div class="flex flex-wrap gap-2 md:gap-3">
-			<select bind:value={filterTipo} class="flex-1 min-w-0 rounded-lg border border-slate-300 px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm">
+			<select bind:value={filterTipo} class="flex-1 min-w-0 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm">
 				<option value="">Todos los tipos</option>
 				<option value="CORRECTIVO">Correctivo</option>
 				<option value="PREVENTIVO">Preventivo</option>
 				<option value="EMERGENCIA">Emergencia</option>
 			</select>
-			<select bind:value={filterEstado} class="flex-1 min-w-0 rounded-lg border border-slate-300 px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm">
+			<select bind:value={filterEstado} class="flex-1 min-w-0 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm">
 				<option value="">Todos los estados</option>
 				<option value="PENDIENTE">Pendiente</option>
 				<option value="REALIZADO">Realizado</option>
 			</select>
-			<button onclick={loadData} class="px-3 md:px-4 py-1.5 md:py-2 bg-slate-800 hover:bg-slate-700 text-white text-xs md:text-sm rounded-lg transition-colors">Filtrar</button>
+			<button onclick={loadData} class="px-3 md:px-4 py-1.5 md:py-2 bg-slate-800 dark:bg-slate-600 hover:bg-slate-700 dark:hover:bg-slate-500 text-white text-xs md:text-sm rounded-lg transition-colors">Filtrar</button>
 		</div>
 	</div>
 
-	<div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+	<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
 		<div class="overflow-x-auto">
-			<table class="min-w-[500px] w-full divide-y divide-slate-200">
-				<thead class="bg-slate-50">
+			<table class="min-w-[500px] w-full divide-y divide-slate-200 dark:divide-slate-700">
+				<thead class="bg-slate-50 dark:bg-slate-700">
 					<tr>
 						{#each columns as col}
-							<th class="px-2 md:px-4 py-2 md:py-3 text-left text-xs font-semibold text-slate-500 uppercase">{col.label}</th>
+							<th class="px-2 md:px-4 py-2 md:py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-300 uppercase">{col.label}</th>
 						{/each}
 					</tr>
 				</thead>
-				<tbody class="divide-y divide-slate-200">
+				<tbody class="divide-y divide-slate-200 dark:divide-slate-700">
 					{#if loading}
-						<tr><td colspan={columns.length} class="px-2 md:px-4 py-8 md:py-12 text-center text-slate-500 text-sm">Cargando...</td></tr>
+						<tr><td colspan={columns.length} class="px-2 md:px-4 py-8 md:py-12 text-center text-slate-500 dark:text-slate-400 text-sm">Cargando...</td></tr>
 					{:else if mantenimientos.length === 0}
-						<tr><td colspan={columns.length} class="px-2 md:px-4 py-8 md:py-12 text-center text-slate-400 text-sm">Sin mantenimientos</td></tr>
+						<tr><td colspan={columns.length} class="px-2 md:px-4 py-8 md:py-12 text-center text-slate-400 dark:text-slate-500 text-sm">Sin mantenimientos</td></tr>
 					{:else}
 						{#each mantenimientos as m}
-							<tr class="hover:bg-slate-50 transition-colors">
-								<td class="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm font-medium text-slate-800">{m.titulo}</td>
-								<td class="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm text-slate-600">{m.equipo_nombre}</td>
-								<td class="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm text-slate-600 capitalize">{m.tipo}</td>
-								<td class="hidden sm:table-cell px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm text-slate-600">{new Date(m.fecha).toLocaleDateString()}</td>
+							<tr class="hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+								<td class="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm font-medium text-slate-800 dark:text-slate-100">{m.titulo}</td>
+								<td class="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm text-slate-600 dark:text-slate-300">{m.equipo_nombre}</td>
+								<td class="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm text-slate-600 dark:text-slate-300 capitalize">{m.tipo}</td>
+								<td class="hidden sm:table-cell px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm text-slate-600 dark:text-slate-300">{new Date(m.fecha).toLocaleDateString()}</td>
 								<td class="px-2 md:px-4 py-2 md:py-3"><StatusBadge status={m.estado} /></td>
-								<td class="hidden md:table-cell px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm text-slate-600">{m.usuario_nombre}</td>
+								<td class="hidden md:table-cell px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm text-slate-600 dark:text-slate-300">{m.usuario_nombre}</td>
 							</tr>
 						{/each}
 					{/if}

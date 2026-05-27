@@ -59,18 +59,18 @@
 
 <div class="space-y-4 md:space-y-6">
 	<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
-		<h2 class="text-lg md:text-xl font-semibold text-slate-800">Códigos QR</h2>
+		<h2 class="text-lg md:text-xl font-semibold text-slate-800 dark:text-slate-100">Códigos QR</h2>
 
 	</div>
 
-	<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-3 md:p-4">
+	<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 md:p-4">
 		<div class="flex gap-2 md:gap-3">
 			<input
 				type="text"
 				bind:value={search}
 				oninput={handleSearch}
 				placeholder="Buscar por código o nombre..."
-				class="flex-1 min-w-0 rounded-lg border border-slate-300 px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm"
+				class="flex-1 min-w-0 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm"
 			/>
 		</div>
 	</div>
@@ -80,13 +80,13 @@
 			<div class="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
 		</div>
 	{:else if filtered.length === 0}
-		<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 md:p-12 text-center">
-			<p class="text-sm text-slate-400">No se encontraron equipos</p>
+		<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-8 md:p-12 text-center">
+			<p class="text-sm text-slate-400 dark:text-slate-500">No se encontraron equipos</p>
 		</div>
 	{:else}
 		<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
 			{#each filtered as eq}
-				<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-3 md:p-4 flex flex-col items-center gap-2 hover:shadow-md transition-shadow">
+				<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 md:p-4 flex flex-col items-center gap-2 hover:shadow-md transition-shadow">
 					<img
 						src={'/api/qr/' + eq.id}
 						alt={'QR ' + eq.codigo_equipo}
@@ -94,8 +94,8 @@
 						loading="lazy"
 					/>
 					<div class="text-center min-w-0 w-full">
-						<p class="text-xs md:text-sm font-medium text-slate-800 truncate">{eq.codigo_equipo}</p>
-						<p class="text-xs text-slate-500 truncate">{eq.nombre}</p>
+						<p class="text-xs md:text-sm font-medium text-slate-800 dark:text-slate-100 truncate">{eq.codigo_equipo}</p>
+						<p class="text-xs text-slate-500 dark:text-slate-400 truncate">{eq.nombre}</p>
 					</div>
 					<div class="flex gap-1.5 md:gap-2 w-full">
 						<button

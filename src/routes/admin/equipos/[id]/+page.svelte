@@ -113,11 +113,11 @@
 	<div class="space-y-4 md:space-y-6">
 		<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
 			<div class="min-w-0">
-				<a href="/admin/equipos" class="text-xs md:text-sm text-blue-600 hover:underline">← Volver a equipos</a>
-				<h2 class="text-lg md:text-2xl font-bold text-slate-800 mt-0.5 truncate">{equipo.codigo_equipo} - {equipo.nombre}</h2>
+				<a href="/admin/equipos" class="text-xs md:text-sm text-blue-600 dark:text-blue-400 hover:underline">← Volver a equipos</a>
+				<h2 class="text-lg md:text-2xl font-bold text-slate-800 dark:text-slate-100 mt-0.5 truncate">{equipo.codigo_equipo} - {equipo.nombre}</h2>
 			</div>
 			<div class="flex flex-wrap gap-1.5 md:gap-2">
-				<button onclick={openEdit} class="px-2.5 md:px-4 py-1.5 md:py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs md:text-sm font-medium rounded-lg transition-colors">Editar</button>
+				<button onclick={openEdit} class="px-2.5 md:px-4 py-1.5 md:py-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs md:text-sm font-medium rounded-lg transition-colors">Editar</button>
 				<button onclick={() => { nuevoEstado = equipo.estado; motivoEstado = ''; showEstadoModal = true; }} class="px-2.5 md:px-4 py-1.5 md:py-2 bg-yellow-500 hover:bg-yellow-600 text-white text-xs md:text-sm font-medium rounded-lg transition-colors">Estado</button>
 				<a href={reportesApi.equipoPdf(id)} target="_blank" class="px-2.5 md:px-4 py-1.5 md:py-2 bg-red-600 hover:bg-red-700 text-white text-xs md:text-sm font-medium rounded-lg transition-colors">PDF</a>
 				<a href={reportesApi.equipoQr(id)} target="_blank" class="px-2.5 md:px-4 py-1.5 md:py-2 bg-green-600 hover:bg-green-700 text-white text-xs md:text-sm font-medium rounded-lg transition-colors">QR</a>
@@ -127,21 +127,21 @@
 
 		<StatusBadge status={equipo.estado} size="md" />
 
-		<div class="border-b border-slate-200 overflow-x-auto">
+		<div class="border-b border-slate-200 dark:border-slate-700 overflow-x-auto">
 			<nav class="flex gap-4 md:gap-6 min-w-max">
-				<button onclick={() => (tab = 'info')} class="pb-2 md:pb-3 text-xs md:text-sm font-medium border-b-2 transition-colors whitespace-nowrap" class:border-blue-600={tab === 'info'} class:text-blue-600={tab === 'info'} class:border-transparent={tab !== 'info'} class:text-slate-500={tab !== 'info'}>
+				<button onclick={() => (tab = 'info')} class="pb-2 md:pb-3 text-xs md:text-sm font-medium border-b-2 transition-colors whitespace-nowrap" 			class:border-blue-600={tab === 'info'} class:text-blue-600={tab === 'info'} class:border-transparent={tab !== 'info'} class:text-slate-500={tab !== 'info'} class:dark:text-slate-400={tab !== 'info'}>
 					Información
 				</button>
-				<button onclick={() => (tab = 'mantenimientos')} class="pb-2 md:pb-3 text-xs md:text-sm font-medium border-b-2 transition-colors whitespace-nowrap" class:border-blue-600={tab === 'mantenimientos'} class:text-blue-600={tab === 'mantenimientos'} class:border-transparent={tab !== 'mantenimientos'} class:text-slate-500={tab !== 'mantenimientos'}>
+				<button onclick={() => (tab = 'mantenimientos')} class="pb-2 md:pb-3 text-xs md:text-sm font-medium border-b-2 transition-colors whitespace-nowrap" class:border-blue-600={tab === 'mantenimientos'} class:text-blue-600={tab === 'mantenimientos'} class:border-transparent={tab !== 'mantenimientos'} class:text-slate-500={tab !== 'mantenimientos'} class:dark:text-slate-400={tab !== 'mantenimientos'}>
 					Mantenimientos ({mantenimientos.length})
 				</button>
-				<button onclick={() => (tab = 'fotos')} class="pb-2 md:pb-3 text-xs md:text-sm font-medium border-b-2 transition-colors whitespace-nowrap" class:border-blue-600={tab === 'fotos'} class:text-blue-600={tab === 'fotos'} class:border-transparent={tab !== 'fotos'} class:text-slate-500={tab !== 'fotos'}>
+				<button onclick={() => (tab = 'fotos')} class="pb-2 md:pb-3 text-xs md:text-sm font-medium border-b-2 transition-colors whitespace-nowrap" class:border-blue-600={tab === 'fotos'} class:text-blue-600={tab === 'fotos'} class:border-transparent={tab !== 'fotos'} class:text-slate-500={tab !== 'fotos'} class:dark:text-slate-400={tab !== 'fotos'}>
 					Fotos ({equipo.fotos.length})
 				</button>
-				<button onclick={() => (tab = 'repuestos')} class="pb-2 md:pb-3 text-xs md:text-sm font-medium border-b-2 transition-colors whitespace-nowrap" class:border-blue-600={tab === 'repuestos'} class:text-blue-600={tab === 'repuestos'} class:border-transparent={tab !== 'repuestos'} class:text-slate-500={tab !== 'repuestos'}>
+				<button onclick={() => (tab = 'repuestos')} class="pb-2 md:pb-3 text-xs md:text-sm font-medium border-b-2 transition-colors whitespace-nowrap" class:border-blue-600={tab === 'repuestos'} class:text-blue-600={tab === 'repuestos'} class:border-transparent={tab !== 'repuestos'} class:text-slate-500={tab !== 'repuestos'} class:dark:text-slate-400={tab !== 'repuestos'}>
 					Repuestos
 				</button>
-				<button onclick={() => (tab = 'historial')} class="pb-2 md:pb-3 text-xs md:text-sm font-medium border-b-2 transition-colors whitespace-nowrap" class:border-blue-600={tab === 'historial'} class:text-blue-600={tab === 'historial'} class:border-transparent={tab !== 'historial'} class:text-slate-500={tab !== 'historial'}>
+				<button onclick={() => (tab = 'historial')} class="pb-2 md:pb-3 text-xs md:text-sm font-medium border-b-2 transition-colors whitespace-nowrap" class:border-blue-600={tab === 'historial'} class:text-blue-600={tab === 'historial'} class:border-transparent={tab !== 'historial'} class:text-slate-500={tab !== 'historial'} class:dark:text-slate-400={tab !== 'historial'}>
 					Historial
 				</button>
 			</nav>
@@ -149,47 +149,47 @@
 
 		{#if tab === 'info'}
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-				<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6">
-					<h3 class="font-semibold text-slate-800 text-sm md:text-base mb-3">Datos generales</h3>
+				<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 md:p-6">
+					<h3 class="font-semibold text-slate-800 dark:text-slate-100 text-sm md:text-base mb-3">Datos generales</h3>
 					<dl class="space-y-2 md:space-y-3 text-sm">
-						<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">Código</dt><dd class="text-slate-800 font-medium text-right">{equipo.codigo_equipo}</dd></div>
-						<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">Nombre</dt><dd class="text-slate-800 font-medium text-right">{equipo.nombre}</dd></div>
-						<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">Descripción</dt><dd class="text-slate-800 text-right">{equipo.descripcion || '—'}</dd></div>
-						<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">Nivel</dt><dd class="text-slate-800 text-right">{equipo.nivel}</dd></div>
-						<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">Área</dt><dd class="text-slate-800 text-right">{equipo.nombre_area || '—'}</dd></div>
-						<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">Clasificación</dt><dd class="text-slate-800 text-right">{equipo.nombre_clasificacion || '—'}</dd></div>
-						<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">Estado</dt><dd><StatusBadge status={equipo.estado} /></dd></div>
+						<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">Código</dt><dd class="text-slate-800 dark:text-slate-100 font-medium text-right">{equipo.codigo_equipo}</dd></div>
+						<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">Nombre</dt><dd class="text-slate-800 dark:text-slate-100 font-medium text-right">{equipo.nombre}</dd></div>
+						<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">Descripción</dt><dd class="text-slate-800 dark:text-slate-100 text-right">{equipo.descripcion || '—'}</dd></div>
+						<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">Nivel</dt><dd class="text-slate-800 dark:text-slate-100 text-right">{equipo.nivel}</dd></div>
+						<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">Área</dt><dd class="text-slate-800 dark:text-slate-100 text-right">{equipo.nombre_area || '—'}</dd></div>
+						<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">Clasificación</dt><dd class="text-slate-800 dark:text-slate-100 text-right">{equipo.nombre_clasificacion || '—'}</dd></div>
+						<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">Estado</dt><dd><StatusBadge status={equipo.estado} /></dd></div>
 						{#if equipo.motivo_estado}
-							<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">Motivo</dt><dd class="text-slate-800 text-right">{equipo.motivo_estado}</dd></div>
+							<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">Motivo</dt><dd class="text-slate-800 dark:text-slate-100 text-right">{equipo.motivo_estado}</dd></div>
 						{/if}
 					</dl>
 				</div>
 
-				<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6">
-					<h3 class="font-semibold text-slate-800 text-sm md:text-base mb-3">Especificaciones</h3>
+				<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 md:p-6">
+					<h3 class="font-semibold text-slate-800 dark:text-slate-100 text-sm md:text-base mb-3">Especificaciones</h3>
 					<dl class="space-y-2 md:space-y-3 text-sm">
-						<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">Marca</dt><dd class="text-slate-800 text-right">{equipo.marca || '—'}</dd></div>
-						<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">Modelo</dt><dd class="text-slate-800 text-right">{equipo.modelo || '—'}</dd></div>
-						<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">N° Serie</dt><dd class="text-slate-800 text-right">{equipo.numero_serie || '—'}</dd></div>
-						<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">Potencia</dt><dd class="text-slate-800 text-right">{equipo.potencia || '—'}</dd></div>
-						<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">Voltaje</dt><dd class="text-slate-800 text-right">{equipo.voltaje || '—'}</dd></div>
-						<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">RPM</dt><dd class="text-slate-800 text-right">{equipo.rpm || '—'}</dd></div>
-						<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">Capacidad</dt><dd class="text-slate-800 text-right">{equipo.capacidad || '—'}</dd></div>
-						<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">Año fab.</dt><dd class="text-slate-800 text-right">{equipo.anio_fabricacion ?? '—'}</dd></div>
-						<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">Proveedor</dt><dd class="text-slate-800 text-right">{equipo.proveedor || '—'}</dd></div>
-						<div class="flex justify-between gap-2"><dt class="text-slate-500 shrink-0">Fecha adq.</dt><dd class="text-slate-800 text-right">{equipo.fecha_adquisicion ? new Date(equipo.fecha_adquisicion).toLocaleDateString() : '—'}</dd></div>
+						<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">Marca</dt><dd class="text-slate-800 dark:text-slate-100 text-right">{equipo.marca || '—'}</dd></div>
+						<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">Modelo</dt><dd class="text-slate-800 dark:text-slate-100 text-right">{equipo.modelo || '—'}</dd></div>
+						<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">N° Serie</dt><dd class="text-slate-800 dark:text-slate-100 text-right">{equipo.numero_serie || '—'}</dd></div>
+						<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">Potencia</dt><dd class="text-slate-800 dark:text-slate-100 text-right">{equipo.potencia || '—'}</dd></div>
+						<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">Voltaje</dt><dd class="text-slate-800 dark:text-slate-100 text-right">{equipo.voltaje || '—'}</dd></div>
+						<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">RPM</dt><dd class="text-slate-800 dark:text-slate-100 text-right">{equipo.rpm || '—'}</dd></div>
+						<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">Capacidad</dt><dd class="text-slate-800 dark:text-slate-100 text-right">{equipo.capacidad || '—'}</dd></div>
+						<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">Año fab.</dt><dd class="text-slate-800 dark:text-slate-100 text-right">{equipo.anio_fabricacion ?? '—'}</dd></div>
+						<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">Proveedor</dt><dd class="text-slate-800 dark:text-slate-100 text-right">{equipo.proveedor || '—'}</dd></div>
+						<div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400 shrink-0">Fecha adq.</dt><dd class="text-slate-800 dark:text-slate-100 text-right">{equipo.fecha_adquisicion ? new Date(equipo.fecha_adquisicion).toLocaleDateString() : '—'}</dd></div>
 					</dl>
 				</div>
 
-				<div class="md:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6">
-					<h3 class="font-semibold text-slate-800 text-sm md:text-base mb-3">Observaciones</h3>
-					<p class="text-sm text-slate-700">{equipo.observaciones || 'Sin observaciones'}</p>
+				<div class="md:col-span-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 md:p-6">
+					<h3 class="font-semibold text-slate-800 dark:text-slate-100 text-sm md:text-base mb-3">Observaciones</h3>
+					<p class="text-sm text-slate-700 dark:text-slate-200">{equipo.observaciones || 'Sin observaciones'}</p>
 				</div>
 			</div>
 		{:else if tab === 'mantenimientos'}
-			<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6">
+			<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 md:p-6">
 				<div class="flex items-center justify-between gap-2 mb-3 md:mb-4">
-					<h3 class="font-semibold text-slate-800 text-sm md:text-base">Historial de Mantenimientos</h3>
+					<h3 class="font-semibold text-slate-800 dark:text-slate-100 text-sm md:text-base">Historial de Mantenimientos</h3>
 					<a href="/admin/mantenimientos/crear?equipo_id={id}" class="px-3 md:px-4 py-1.5 md:py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs md:text-sm font-medium rounded-lg transition-colors whitespace-nowrap">
 						+ Nuevo
 					</a>
@@ -198,24 +198,24 @@
 					<p class="text-sm text-slate-400 text-center py-8">Sin mantenimientos registrados</p>
 				{:else}
 					<div class="overflow-x-auto">
-						<table class="min-w-[400px] w-full divide-y divide-slate-200">
-							<thead class="bg-slate-50">
+						<table class="min-w-[400px] w-full divide-y divide-slate-200 dark:divide-slate-700">
+							<thead class="bg-slate-50 dark:bg-slate-700">
 								<tr>
-									<th class="px-3 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Título</th>
-									<th class="px-3 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Tipo</th>
-									<th class="hidden sm:table-cell px-3 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Fecha</th>
-									<th class="px-3 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Estado</th>
-									<th class="hidden md:table-cell px-3 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Realizado por</th>
+									<th class="px-3 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-300 uppercase">Título</th>
+									<th class="px-3 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-300 uppercase">Tipo</th>
+									<th class="hidden sm:table-cell px-3 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-300 uppercase">Fecha</th>
+									<th class="px-3 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-300 uppercase">Estado</th>
+									<th class="hidden md:table-cell px-3 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-300 uppercase">Realizado por</th>
 								</tr>
 							</thead>
-							<tbody class="divide-y divide-slate-200">
+							<tbody class="divide-y divide-slate-200 dark:divide-slate-700">
 								{#each mantenimientos as m}
 									<tr>
-										<td class="px-3 py-3 text-sm text-slate-800">{m.titulo}</td>
-										<td class="px-3 py-3 text-sm text-slate-600">{m.tipo}</td>
-										<td class="hidden sm:table-cell px-3 py-3 text-sm text-slate-600">{new Date(m.fecha).toLocaleDateString()}</td>
+										<td class="px-3 py-3 text-sm text-slate-800 dark:text-slate-100">{m.titulo}</td>
+										<td class="px-3 py-3 text-sm text-slate-600 dark:text-slate-300">{m.tipo}</td>
+										<td class="hidden sm:table-cell px-3 py-3 text-sm text-slate-600 dark:text-slate-300">{new Date(m.fecha).toLocaleDateString()}</td>
 										<td class="px-3 py-3"><StatusBadge status={m.estado} /></td>
-										<td class="hidden md:table-cell px-3 py-3 text-sm text-slate-600">{m.usuario_nombre}</td>
+										<td class="hidden md:table-cell px-3 py-3 text-sm text-slate-600 dark:text-slate-300">{m.usuario_nombre}</td>
 									</tr>
 								{/each}
 							</tbody>
@@ -224,8 +224,8 @@
 				{/if}
 			</div>
 		{:else if tab === 'fotos'}
-			<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6">
-				<h3 class="font-semibold text-slate-800 text-sm md:text-base mb-3 md:mb-4">Fotos del equipo</h3>
+			<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 md:p-6">
+				<h3 class="font-semibold text-slate-800 dark:text-slate-100 text-sm md:text-base mb-3 md:mb-4">Fotos del equipo</h3>
 				{#if equipo.fotos.length === 0}
 					<p class="text-sm text-slate-400 text-center py-8">Sin fotos</p>
 				{:else}
@@ -233,15 +233,15 @@
 						{#each equipo.fotos as foto}
 							<div>
 								<img src={foto.url} alt={foto.tipo} class="w-full h-20 md:h-32 object-cover rounded-lg border" />
-								<p class="text-xs text-slate-500 mt-1 text-center capitalize">{foto.tipo}</p>
+								<p class="text-xs text-slate-500 dark:text-slate-400 mt-1 text-center capitalize">{foto.tipo}</p>
 							</div>
 						{/each}
 					</div>
 				{/if}
 			</div>
 		{:else if tab === 'repuestos'}
-			<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6">
-				<h3 class="font-semibold text-slate-800 text-sm md:text-base mb-3 md:mb-4">Repuestos Necesarios</h3>
+			<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 md:p-6">
+				<h3 class="font-semibold text-slate-800 dark:text-slate-100 text-sm md:text-base mb-3 md:mb-4">Repuestos Necesarios</h3>
 				{#if equipo.repuestos_necesarios.length === 0}
 					<p class="text-sm text-slate-400 text-center py-8">Sin repuestos registrados</p>
 				{:else}
@@ -270,24 +270,24 @@
 				{/if}
 			</div>
 		{:else if tab === 'historial'}
-			<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6">
-				<h3 class="font-semibold text-slate-800 text-sm md:text-base mb-3 md:mb-4">Historial de cambios</h3>
+			<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 md:p-6">
+				<h3 class="font-semibold text-slate-800 dark:text-slate-100 text-sm md:text-base mb-3 md:mb-4">Historial de cambios</h3>
 				{#if historial.length === 0}
 					<p class="text-sm text-slate-400 text-center py-8">Sin cambios registrados</p>
 				{:else}
 					<div class="space-y-2 md:space-y-3">
 						{#each historial as h}
-							<div class="flex items-start gap-2 md:gap-3 p-2 md:p-3 bg-slate-50 rounded-lg text-xs md:text-sm">
+							<div class="flex items-start gap-2 md:gap-3 p-2 md:p-3 bg-slate-50 dark:bg-slate-700 rounded-lg text-xs md:text-sm">
 								<div class="w-2 h-2 mt-1.5 rounded-full bg-blue-500 shrink-0"></div>
 								<div class="flex-1 min-w-0">
-									<p class="text-slate-700">
+									<p class="text-slate-700 dark:text-slate-200">
 										<span class="font-medium">{h.usuario_nombre}</span>
 										cambió <span class="font-medium">{h.campo}</span>
 									</p>
-									<p class="text-xs text-slate-500 mt-0.5 truncate">
+									<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 truncate">
 										{h.valor_anterior || '(vacío)'} → {h.valor_nuevo || '(vacío)'}
 									</p>
-									<p class="text-xs text-slate-400 mt-0.5">{new Date(h.created_at).toLocaleString()}</p>
+									<p class="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{new Date(h.created_at).toLocaleString()}</p>
 								</div>
 							</div>
 						{/each}
@@ -300,8 +300,8 @@
 	<Modal bind:open={showEstadoModal} title="Cambiar Estado" onConfirm={handleEstadoChange} confirmText="Guardar">
 		<div class="space-y-4">
 			<div>
-				<label class="block text-sm font-medium text-slate-700 mb-1">Nuevo estado</label>
-				<select bind:value={nuevoEstado} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm">
+				<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Nuevo estado</label>
+				<select bind:value={nuevoEstado} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm">
 					<option value="OPERATIVO">Operativo</option>
 					<option value="PARADO">Parado</option>
 					<option value="REPARACION">Reparación</option>
@@ -309,22 +309,22 @@
 				</select>
 			</div>
 			<div>
-				<label class="block text-sm font-medium text-slate-700 mb-1">Motivo</label>
-				<textarea bind:value={motivoEstado} rows={3} class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm" placeholder="Opcional"></textarea>
+				<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Motivo</label>
+				<textarea bind:value={motivoEstado} rows={3} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm" placeholder="Opcional"></textarea>
 			</div>
 		</div>
 	</Modal>
 
 	<Modal bind:open={showDeleteModal} title="Eliminar Equipo" onConfirm={handleDelete} confirmText="Eliminar">
-		<p class="text-sm text-slate-600">¿Estás seguro de eliminar este equipo? Esta acción no se puede deshacer.</p>
+		<p class="text-sm text-slate-600 dark:text-slate-300">¿Estás seguro de eliminar este equipo? Esta acción no se puede deshacer.</p>
 	</Modal>
 
 	<Modal bind:open={showEditModal} title="Editar Equipo" onConfirm={handleEdit} confirmText="Guardar cambios">
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-80 overflow-y-auto">
 			{#each Object.entries(editFields) as [key, val]}
 				<div>
-					<label class="block text-sm font-medium text-slate-700 mb-1 capitalize">{key.replace(/_/g, ' ')}</label>
-					<input type="text" bind:value={editFields[key]} class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+					<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1 capitalize">{key.replace(/_/g, ' ')}</label>
+					<input type="text" bind:value={editFields[key]} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2 text-sm" />
 				</div>
 			{/each}
 		</div>
