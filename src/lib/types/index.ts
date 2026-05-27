@@ -212,6 +212,7 @@ export interface MantenimientoCreate {
 	titulo: string;
 	descripcion?: string;
 	trabajo_realizado?: string;
+	realizado_por?: string;
 	estado?: EstadoMantenimiento;
 	fecha: string;
 	repuestos_usados?: RepuestoUsado[];

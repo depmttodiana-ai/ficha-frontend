@@ -4,12 +4,14 @@
 	import { goto } from '$app/navigation';
 	import { mantenimientosApi } from '$lib/api/mantenimientos';
 	import { equiposApi } from '$lib/api/equipos';
+	import { repuestosApi } from '$lib/api/repuestos';
 	import { addToast } from '$lib/stores/toast';
 	import { getErrorDetail } from '$lib/api/client';
 	import type { EquipoList, RepuestoNecesario } from '$lib/types';
 
 	let equipos = $state<EquipoList[]>([]);
 	let repuestos = $state<RepuestoNecesario[]>([]);
+	let todosRepuestos = $state<RepuestoNecesario[]>([]);
 	let loading = $state(false);
 	let showRepuestos = $state(false);
 
@@ -19,6 +21,7 @@
 		titulo: '',
 		descripcion: '',
 		trabajo_realizado: '',
+		realizado_por: '',
 		estado: 'REALIZADO',
 		fecha: new Date().toISOString().split('T')[0],
 	});
@@ -32,13 +35,22 @@
 		} catch {
 			// silent
 		}
+		try {
+			const res = await repuestosApi.list();
+			todosRepuestos = res.data;
+		} catch {
+			// silent
+		}
+		if (form.equipo_id) {
+			await equipoChange();
+		}
 	});
 
 	async function equipoChange() {
 		if (!form.equipo_id) { repuestos = []; return; }
 		try {
 			const res = await mantenimientosApi.repuestosNecesarios(form.equipo_id);
-			repuestos = res.data;
+			repuestos = res.data.repuestos_necesarios ?? [];
 		} catch {
 			repuestos = [];
 		}
@@ -62,6 +74,7 @@
 				titulo: form.titulo,
 				descripcion: form.descripcion || undefined,
 				trabajo_realizado: form.trabajo_realizado || undefined,
+				realizado_por: form.realizado_por || undefined,
 				estado: form.estado as any,
 				fecha: form.fecha,
 				repuestos_usados: repuestosUsados.filter((r) => r.repuesto_id !== '').map((r) => ({
@@ -122,6 +135,10 @@
 					<label class="block text-xs md:text-sm font-medium text-slate-700 mb-1">Fecha</label>
 					<input type="date" bind:value={form.fecha} required class="w-full rounded-lg border border-slate-300 px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm" />
 				</div>
+				<div>
+					<label class="block text-xs md:text-sm font-medium text-slate-700 mb-1">Realizado por</label>
+					<input type="text" bind:value={form.realizado_por} class="w-full rounded-lg border border-slate-300 px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm" placeholder="Nombre de quien realizó" />
+				</div>
 				<div class="md:col-span-2">
 					<label class="block text-xs md:text-sm font-medium text-slate-700 mb-1">Descripción</label>
 					<textarea bind:value={form.descripcion} rows={3} class="w-full rounded-lg border border-slate-300 px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm"></textarea>
@@ -136,7 +153,9 @@
 		<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6">
 			<div class="flex items-center justify-between gap-2 mb-3 md:mb-4">
 				<h3 class="font-semibold text-slate-800 text-sm md:text-base">Repuestos utilizados</h3>
-				<button type="button" onclick={addRepuesto} class="text-xs md:text-sm text-blue-600 hover:underline whitespace-nowrap">+ Agregar</button>
+				{#if form.equipo_id}
+					<button type="button" onclick={addRepuesto} class="text-xs md:text-sm text-blue-600 hover:underline whitespace-nowrap">+ Agregar</button>
+				{/if}
 			</div>
 			{#if repuestos.length > 0}
 				<div class="text-xs md:text-sm text-green-600 mb-3 bg-green-50 p-2 md:p-3 rounded-lg">
@@ -148,10 +167,16 @@
 					<div class="flex-1 min-w-0">
 						<select bind:value={ru.repuesto_id} class="w-full rounded-lg border border-slate-300 px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm">
 							<option value="">Seleccionar</option>
-							{#each repuestos as r}
+							{#each todosRepuestos as r}
 								<option value={r.id}>{r.codigo_repuesto} - {r.descripcion}</option>
 							{/each}
 						</select>
+						{#if ru.repuesto_id}
+							{@const selected = todosRepuestos.find(r => r.id === ru.repuesto_id)}
+							{#if selected}
+								<p class="text-xs text-blue-600 mt-1">{selected.codigo_repuesto} - {selected.descripcion}</p>
+							{/if}
+						{/if}
 					</div>
 					<div class="w-20 md:w-24 shrink-0">
 						<input type="number" bind:value={ru.cantidad_usada} min="1" class="w-full rounded-lg border border-slate-300 px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm" placeholder="Cant." />

@@ -19,6 +19,8 @@
 	let eqFilters = $state({ area_id: '', clasificacion_id: '', estado: '', nivel: '' });
 	let mtFilters = $state({ equipo_id: '', fecha_desde: '', fecha_hasta: '' });
 
+	let fichaEquipoId = $state('');
+
 	onMount(async () => {
 		try {
 			const [ar, cl, eq] = await Promise.all([
@@ -55,6 +57,11 @@
 
 	function descargarRepuestos(formato: string) {
 		window.open(`/api/${formato}/repuestos`, '_blank');
+	}
+
+	function descargarFicha(formato: string) {
+		if (!fichaEquipoId) return;
+		window.open(`/api/${formato}/${fichaEquipoId}`, '_blank');
 	}
 
 	function openEquiposModal(formato: 'excel' | 'pdf') {
@@ -108,6 +115,26 @@
 				<button onclick={() => descargarRepuestos('pdf')}
 					class="flex-1 text-center px-2 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-medium rounded-lg transition-colors">PDF</button>
 			</div>
+		</div>
+	</div>
+
+	<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6 hover:shadow-md transition-shadow">
+		<div class="text-2xl md:text-3xl mb-1 md:mb-2">📝</div>
+		<h3 class="font-semibold text-slate-800 text-sm md:text-base mb-1">Fichas Técnicas</h3>
+		<p class="text-xs md:text-sm text-slate-500 mt-0.5 md:mt-1 mb-3 md:mb-4">Ficha técnica individual por equipo</p>
+		<div class="space-y-2 mb-3">
+			<select bind:value={fichaEquipoId} class="w-full rounded-lg border border-slate-300 px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm">
+				<option value="">Seleccionar equipo</option>
+				{#each equipos as eq}
+					<option value={eq.id}>{eq.codigo_equipo} - {eq.nombre}</option>
+				{/each}
+			</select>
+		</div>
+		<div class="flex gap-2">
+			<button onclick={() => descargarFicha('excel')} disabled={!fichaEquipoId}
+				class="flex-1 text-center px-2 py-1.5 bg-green-600 hover:bg-green-700 disabled:opacity-40 text-white text-xs font-medium rounded-lg transition-colors">Excel</button>
+			<button onclick={() => descargarFicha('pdf')} disabled={!fichaEquipoId}
+				class="flex-1 text-center px-2 py-1.5 bg-red-600 hover:bg-red-700 disabled:opacity-40 text-white text-xs font-medium rounded-lg transition-colors">PDF</button>
 		</div>
 	</div>
 
