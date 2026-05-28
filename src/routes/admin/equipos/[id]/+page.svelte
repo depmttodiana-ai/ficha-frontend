@@ -11,13 +11,13 @@
 	import StatusBadge from '$lib/components/StatusBadge.svelte';
 	import Modal from '$lib/components/Modal.svelte';
 	import { getErrorDetail } from '$lib/api/client';
-	import type { EquipoRead, MantenimientoList, HistorialRead, EstadoEquipo } from '$lib/types';
+	import type { EquipoRead, MantenimientoList, HistorialRead, EstadoEquipo, EquipoList } from '$lib/types';
 
 	let equipo = $state<EquipoRead | null>(null);
 	let mantenimientos = $state<MantenimientoList[]>([]);
 	let historial = $state<HistorialRead[]>([]);
 	let loading = $state(true);
-	let tab = $state<'info' | 'mantenimientos' | 'historial' | 'fotos' | 'repuestos'>('info');
+	let tab = $state<'info' | 'mantenimientos' | 'historial' | 'fotos' | 'repuestos' | 'compatibilidad'>('info');
 
 	let showEstadoModal = $state(false);
 	let showDeleteModal = $state(false);
@@ -26,6 +26,11 @@
 
 	let showEditModal = $state(false);
 	let editFields = $state<Record<string, string>>({});
+
+	let equiposDisponibles = $state<EquipoList[]>([]);
+	let showCompatModal = $state(false);
+	let compatEquipoDestinoId = $state('');
+	let compatDescripcion = $state('');
 
 	let id = $derived($page.params.id);
 
@@ -36,19 +41,48 @@
 	async function loadData() {
 		loading = true;
 		try {
-			const [eqRes, mtRes, histRes] = await Promise.all([
+			const [eqRes, mtRes, histRes, eqListRes] = await Promise.all([
 				equiposApi.get(id),
 				mantenimientosApi.byEquipo(id),
 				historialApi.byEquipo(id),
+				equiposApi.list({ nivel: 1 }),
 			]);
 			equipo = eqRes.data;
 			mantenimientos = mtRes.data;
 			historial = histRes.data;
+			equiposDisponibles = eqListRes.data;
 		} catch (err: any) {
 			addToast('error', 'Error al cargar equipo');
 			goto('/admin/equipos');
 		} finally {
 			loading = false;
+		}
+	}
+
+	async function handleAddCompat() {
+		if (!compatEquipoDestinoId) return;
+		try {
+			await equiposApi.compatibleCreate(id, {
+				equipo_destino_id: compatEquipoDestinoId,
+				descripcion: compatDescripcion || undefined,
+			});
+			addToast('success', 'Compatibilidad registrada');
+			showCompatModal = false;
+			compatEquipoDestinoId = '';
+			compatDescripcion = '';
+			await loadData();
+		} catch (err: any) {
+			addToast('error', getErrorDetail(err));
+		}
+	}
+
+	async function handleDeleteCompat(relacionId: string) {
+		try {
+			await equiposApi.compatibleDelete(id, relacionId);
+			addToast('success', 'Compatibilidad eliminada');
+			await loadData();
+		} catch (err: any) {
+			addToast('error', getErrorDetail(err));
 		}
 	}
 
@@ -143,6 +177,9 @@
 				</button>
 				<button onclick={() => (tab = 'historial')} class="pb-2 md:pb-3 text-xs md:text-sm font-medium border-b-2 transition-colors whitespace-nowrap" class:border-blue-600={tab === 'historial'} class:text-blue-600={tab === 'historial'} class:border-transparent={tab !== 'historial'} class:text-slate-500={tab !== 'historial'} class:dark:text-slate-400={tab !== 'historial'}>
 					Historial
+				</button>
+				<button onclick={() => (tab = 'compatibilidad')} class="pb-2 md:pb-3 text-xs md:text-sm font-medium border-b-2 transition-colors whitespace-nowrap" class:border-blue-600={tab === 'compatibilidad'} class:text-blue-600={tab === 'compatibilidad'} class:border-transparent={tab !== 'compatibilidad'} class:text-slate-500={tab !== 'compatibilidad'} class:dark:text-slate-400={tab !== 'compatibilidad'}>
+					Compatibilidad
 				</button>
 			</nav>
 		</div>
@@ -294,8 +331,65 @@
 					</div>
 				{/if}
 			</div>
+		{:else if tab === 'compatibilidad'}
+			<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 md:p-6">
+				<div class="flex items-center justify-between gap-2 mb-3 md:mb-4">
+					<h3 class="font-semibold text-slate-800 dark:text-slate-100 text-sm md:text-base">Equipos donde puede funcionar</h3>
+					<button onclick={() => { compatEquipoDestinoId = ''; compatDescripcion = ''; showCompatModal = true; }} class="px-3 md:px-4 py-1.5 md:py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs md:text-sm font-medium rounded-lg transition-colors whitespace-nowrap">
+						+ Agregar
+					</button>
+				</div>
+				{#if (equipo.equipos_compatibles ?? []).length === 0}
+					<p class="text-sm text-slate-400 text-center py-8">
+						{equipo.nivel === 1 ? 'Los equipos principales no registran compatibilidad.' : 'Sin equipos compatibles registrados'}
+					</p>
+				{:else}
+					<div class="overflow-x-auto">
+						<table class="min-w-[400px] w-full divide-y divide-slate-200 dark:divide-slate-700">
+							<thead class="bg-slate-50 dark:bg-slate-700">
+								<tr>
+									<th class="px-3 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-300 uppercase">Equipo</th>
+									<th class="px-3 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-300 uppercase">Código</th>
+									<th class="hidden sm:table-cell px-3 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-300 uppercase">Descripción</th>
+									<th class="px-3 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-300 uppercase">Acciones</th>
+								</tr>
+							</thead>
+							<tbody class="divide-y divide-slate-200 dark:divide-slate-700">
+								{#each equipo.equipos_compatibles as c}
+									<tr>
+										<td class="px-3 py-3 text-sm font-medium text-slate-800 dark:text-slate-100">{c.nombre_equipo_destino}</td>
+										<td class="px-3 py-3 text-sm text-blue-600">{c.codigo_equipo_destino}</td>
+										<td class="hidden sm:table-cell px-3 py-3 text-sm text-slate-600 dark:text-slate-300">{c.descripcion || '—'}</td>
+										<td class="px-3 py-3 text-sm">
+											<button onclick={() => handleDeleteCompat(c.id)} class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 text-xs font-medium">Eliminar</button>
+										</td>
+									</tr>
+								{/each}
+							</tbody>
+						</table>
+					</div>
+				{/if}
+			</div>
 		{/if}
 	</div>
+
+	<Modal bind:open={showCompatModal} title="Agregar Equipo Compatible" onConfirm={handleAddCompat} confirmText="Agregar">
+		<div class="space-y-4">
+			<div>
+				<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Equipo donde funciona *</label>
+				<select bind:value={compatEquipoDestinoId} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm">
+					<option value="">Seleccionar...</option>
+					{#each equiposDisponibles as eq}
+						<option value={eq.id}>{eq.codigo_equipo} - {eq.nombre}</option>
+					{/each}
+				</select>
+			</div>
+			<div>
+				<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Descripción</label>
+				<textarea bind:value={compatDescripcion} rows={2} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm" placeholder="Ej: Puede servir como motor alternativo"></textarea>
+			</div>
+		</div>
+	</Modal>
 
 	<Modal bind:open={showEstadoModal} title="Cambiar Estado" onConfirm={handleEstadoChange} confirmText="Guardar">
 		<div class="space-y-4">

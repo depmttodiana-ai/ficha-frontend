@@ -162,6 +162,7 @@ export interface EquipoRead {
 	sub_equipos: EquipoList[];
 	fotos: FotoEquipo[];
 	repuestos_necesarios: RepuestoNecesario[];
+	equipos_compatibles: EquipoCompatibleRead[];
 }
 
 export interface EquipoArbolRead extends EquipoRead {
@@ -201,7 +202,7 @@ export type TipoMantenimiento = 'CORRECTIVO' | 'PREVENTIVO' | 'EMERGENCIA';
 export type EstadoMantenimiento = 'PENDIENTE' | 'REALIZADO';
 
 export interface RepuestoUsado {
-	repuesto_id: string;
+	repuesto_general_id: string;
 	cantidad_usada: number;
 	observacion?: string;
 }
@@ -265,6 +266,91 @@ export interface HistorialRead {
 	valor_nuevo: string | null;
 	usuario_nombre: string;
 	created_at: string;
+}
+
+// === Repuestos Generales ===
+export interface RepuestoGeneralCreate {
+	codigo_repuesto: string;
+	nombre: string;
+	descripcion?: string;
+	marca?: string;
+	modelo?: string;
+	numero_serie?: string;
+	cantidad_stock: number;
+	ubicacion_almacen?: string;
+	observaciones?: string;
+}
+
+export interface RepuestoGeneralUpdate {
+	codigo_repuesto?: string;
+	nombre?: string;
+	descripcion?: string;
+	marca?: string;
+	modelo?: string;
+	numero_serie?: string;
+	cantidad_stock?: number;
+	ubicacion_almacen?: string;
+	observaciones?: string;
+}
+
+export interface RepuestoGeneralRead {
+	id: string;
+	codigo_repuesto: string;
+	nombre: string;
+	descripcion: string | null;
+	marca: string | null;
+	modelo: string | null;
+	numero_serie: string | null;
+	cantidad_stock: number;
+	ubicacion_almacen: string | null;
+	observaciones: string | null;
+	created_at: string;
+	updated_at: string;
+}
+
+export interface RepuestoGeneralList {
+	id: string;
+	codigo_repuesto: string;
+	nombre: string;
+	marca: string | null;
+	modelo: string | null;
+	cantidad_stock: number;
+	ubicacion_almacen: string | null;
+}
+
+// === Repuestos por Equipo ===
+export interface RepuestoPorEquipoCreate {
+	repuesto_general_id: string;
+	equipo_id: string;
+	clasificacion?: string;
+	observaciones?: string;
+}
+
+export interface RepuestoPorEquipoRead {
+	id: string;
+	repuesto_general_id: string;
+	equipo_id: string;
+	clasificacion: string | null;
+	observaciones: string | null;
+	codigo_repuesto: string | null;
+	nombre_repuesto: string | null;
+	codigo_equipo: string | null;
+	nombre_equipo: string | null;
+}
+
+// === Equipos Compatibles ===
+export interface EquipoCompatibleCreate {
+	equipo_destino_id: string;
+	descripcion?: string;
+}
+
+export interface EquipoCompatibleRead {
+	id: string;
+	componente_id: string;
+	equipo_destino_id: string;
+	codigo_equipo_destino: string | null;
+	nombre_equipo_destino: string | null;
+	descripcion: string | null;
 }
 
 // === Pagination ===

@@ -4,14 +4,14 @@
 	import { goto } from '$app/navigation';
 	import { mantenimientosApi } from '$lib/api/mantenimientos';
 	import { equiposApi } from '$lib/api/equipos';
-	import { repuestosApi } from '$lib/api/repuestos';
+	import { repuestosGeneralesApi } from '$lib/api/repuestos_generales';
 	import { addToast } from '$lib/stores/toast';
 	import { getErrorDetail } from '$lib/api/client';
-	import type { EquipoList, RepuestoNecesario } from '$lib/types';
+	import type { EquipoList, RepuestoGeneralList } from '$lib/types';
 
 	let equipos = $state<EquipoList[]>([]);
-	let repuestos = $state<RepuestoNecesario[]>([]);
-	let todosRepuestos = $state<RepuestoNecesario[]>([]);
+	let repuestos = $state<RepuestoGeneralList[]>([]);
+	let todosRepuestos = $state<RepuestoGeneralList[]>([]);
 	let loading = $state(false);
 	let showRepuestos = $state(false);
 
@@ -26,7 +26,7 @@
 		fecha: new Date().toISOString().split('T')[0],
 	});
 
-	let repuestosUsados = $state<{ repuesto_id: string; cantidad_usada: number; observacion: string }[]>([]);
+	let repuestosUsados = $state<{ repuesto_general_id: string; cantidad_usada: number; observacion: string }[]>([]);
 
 	onMount(async () => {
 		try {
@@ -36,7 +36,7 @@
 			// silent
 		}
 		try {
-			const res = await repuestosApi.list();
+			const res = await repuestosGeneralesApi.list();
 			todosRepuestos = res.data;
 		} catch {
 			// silent
@@ -57,7 +57,7 @@
 	}
 
 	function addRepuesto() {
-		repuestosUsados = [...repuestosUsados, { repuesto_id: '', cantidad_usada: 1, observacion: '' }];
+		repuestosUsados = [...repuestosUsados, { repuesto_general_id: '', cantidad_usada: 1, observacion: '' }];
 	}
 
 	function removeRepuesto(i: number) {
@@ -77,8 +77,8 @@
 				realizado_por: form.realizado_por || undefined,
 				estado: form.estado as any,
 				fecha: form.fecha,
-				repuestos_usados: repuestosUsados.filter((r) => r.repuesto_id !== '').map((r) => ({
-					repuesto_id: r.repuesto_id,
+				repuestos_usados: repuestosUsados.filter((r) => r.repuesto_general_id !== '').map((r) => ({
+					repuesto_general_id: r.repuesto_general_id,
 					cantidad_usada: r.cantidad_usada,
 					observacion: r.observacion || undefined,
 				})),
@@ -165,16 +165,16 @@
 			{#each repuestosUsados as ru, i}
 				<div class="flex gap-2 md:gap-3 items-end mb-2 md:mb-3">
 					<div class="flex-1 min-w-0">
-						<select bind:value={ru.repuesto_id} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm">
+						<select bind:value={ru.repuesto_general_id} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm">
 							<option value="">Seleccionar</option>
 							{#each todosRepuestos as r}
-								<option value={r.id}>{r.codigo_repuesto} - {r.descripcion}</option>
+								<option value={r.id}>{r.codigo_repuesto} - {r.nombre}</option>
 							{/each}
 						</select>
-						{#if ru.repuesto_id}
-							{@const selected = todosRepuestos.find(r => r.id === ru.repuesto_id)}
+						{#if ru.repuesto_general_id}
+							{@const selected = todosRepuestos.find(r => r.id === ru.repuesto_general_id)}
 							{#if selected}
-								<p class="text-xs text-blue-600 dark:text-blue-400 mt-1">{selected.codigo_repuesto} - {selected.descripcion}</p>
+								<p class="text-xs text-blue-600 dark:text-blue-400 mt-1">{selected.codigo_repuesto} - {selected.nombre}</p>
 							{/if}
 						{/if}
 					</div>

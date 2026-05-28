@@ -8,6 +8,8 @@
 		{ href: '/admin', label: 'Dashboard', icon: '📊' },
 		{ href: '/admin/equipos', label: 'Equipos', icon: '⚙️' },
 		{ href: '/admin/repuestos', label: 'Repuestos', icon: '🔩' },
+		{ href: '/admin/repuestos-generales', label: 'Rep. Generales', icon: '📦' },
+		{ href: '/admin/repuestos-por-equipo', label: 'Rep. x Equipo', icon: '🔗' },
 		{ href: '/admin/mantenimientos', label: 'Mantenimientos', icon: '🔧' },
 		{ href: '/admin/areas', label: 'Áreas', icon: '🏢' },
 		{ href: '/admin/clasificaciones', label: 'Clasificaciones', icon: '📂' },

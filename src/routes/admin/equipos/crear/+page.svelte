@@ -10,8 +10,11 @@
 	let areas = $state<AreaList[]>([]);
 	let clasificaciones = $state<ClasificacionList[]>([]);
 	let equiposPadre = $state<EquipoList[]>([]);
+	let todosEquipos = $state<EquipoList[]>([]);
 	let loading = $state(false);
 	let fotoPreviews = $state<string[]>([]);
+
+	let equiposCompatibles = $state<{ equipo_destino_id: string; descripcion: string }[]>([]);
 
 	let form = $state({
 		codigo_equipo: '',
@@ -40,14 +43,16 @@
 
 	onMount(async () => {
 		try {
-			const [areaRes, clasifRes, padresRes] = await Promise.all([
+			const [areaRes, clasifRes, padresRes, todosRes] = await Promise.all([
 				areasApi.list({ limit: 100 }),
 				clasificacionesApi.list({ limit: 100 }),
 				equiposApi.raices(),
+				equiposApi.list({ limit: 100 }),
 			]);
 			areas = areaRes.data;
 			clasificaciones = clasifRes.data;
 			equiposPadre = padresRes.data;
+			todosEquipos = todosRes.data;
 		} catch {
 			// silent
 		}
@@ -68,6 +73,14 @@
 		fotos = fotos.filter((_, idx) => idx !== i);
 		tiposFoto = tiposFoto.filter((_, idx) => idx !== i);
 		fotoPreviews = fotoPreviews.filter((_, idx) => idx !== i);
+	}
+
+	function addEquipoCompatible() {
+		equiposCompatibles = [...equiposCompatibles, { equipo_destino_id: '', descripcion: '' }];
+	}
+
+	function removeEquipoCompatible(i: number) {
+		equiposCompatibles = equiposCompatibles.filter((_, idx) => idx !== i);
 	}
 
 	async function handleSubmit(e: Event) {
@@ -94,6 +107,10 @@
 			fd.append('estado', form.estado);
 			if (form.motivo_estado) fd.append('motivo_estado', form.motivo_estado);
 			if (form.observaciones) fd.append('observaciones', form.observaciones);
+
+			if (equiposCompatibles.length > 0 && !form.equipo_padre_id) {
+				fd.append('equipos_compatibles', JSON.stringify(equiposCompatibles));
+			}
 
 			fotos.forEach((f, i) => {
 				fd.append(`foto${i + 1}`, f);
@@ -220,6 +237,42 @@
 			<h3 class="font-semibold text-slate-800 dark:text-slate-100 text-sm md:text-base mb-3 md:mb-4">Observaciones</h3>
 			<textarea bind:value={form.observaciones} rows={3} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2.5 text-sm"></textarea>
 		</div>
+
+		{#if !form.equipo_padre_id}
+			<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 md:p-6">
+				<div class="flex items-center justify-between gap-2 mb-3 md:mb-4">
+					<h3 class="font-semibold text-slate-800 dark:text-slate-100 text-sm md:text-base">
+						Equipos donde puede funcionar
+						<span class="text-xs font-normal text-slate-400 ml-1">(opcional)</span>
+					</h3>
+					<button type="button" onclick={addEquipoCompatible} class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium rounded-lg transition-colors">+ Agregar</button>
+				</div>
+				{#if equiposCompatibles.length === 0}
+					<p class="text-sm text-slate-400 text-center py-4">Sin equipos registrados. Útil para componentes que sirven en múltiples equipos.</p>
+				{:else}
+					<div class="space-y-2">
+						{#each equiposCompatibles as _, i}
+							<div class="flex flex-col sm:flex-row gap-2 items-start sm:items-end p-3 bg-slate-50 dark:bg-slate-700 rounded-lg">
+								<div class="flex-1 w-full">
+									<label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Equipo *</label>
+									<select bind:value={equiposCompatibles[i].equipo_destino_id} class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2 text-sm">
+										<option value="">Seleccionar...</option>
+										{#each todosEquipos.filter(e => e.id !== form.equipo_padre_id) as eq}
+											<option value={eq.id}>{eq.codigo_equipo} - {eq.nombre}</option>
+										{/each}
+									</select>
+								</div>
+								<div class="flex-1 w-full">
+									<label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Descripción</label>
+									<input type="text" bind:value={equiposCompatibles[i].descripcion} placeholder="Ej: Como motor alternativo" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 px-3 py-2 text-sm" />
+								</div>
+								<button type="button" onclick={() => removeEquipoCompatible(i)} class="shrink-0 px-2 py-2 bg-red-500 hover:bg-red-600 text-white text-xs rounded-lg transition-colors">✕</button>
+							</div>
+						{/each}
+					</div>
+				{/if}
+			</div>
+		{/if}
 
 		<div class="flex flex-col sm:flex-row justify-end gap-2 md:gap-3">
 			<a href="/admin/equipos" class="w-full sm:w-auto text-center px-6 py-2.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-sm font-medium rounded-lg transition-colors">Cancelar</a>

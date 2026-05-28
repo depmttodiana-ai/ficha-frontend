@@ -1,5 +1,5 @@
 import api from './client';
-import type { EquipoList, EquipoRead, EquipoArbolRead, EstadoUpdate, RepuestoNecesario, PaginationQuery } from '$lib/types';
+import type { EquipoList, EquipoRead, EquipoArbolRead, EstadoUpdate, RepuestoNecesario, PaginationQuery, EquipoCompatibleRead, EquipoCompatibleCreate } from '$lib/types';
 
 export interface EquipoQuery extends PaginationQuery {
 	nombre?: string;
@@ -29,4 +29,9 @@ export const equiposApi = {
 		api.delete(`/equipos/${equipoId}/repuestos-necesarios/${repuestoId}`),
 	addFotos: (id: string, formData: FormData) =>
 		api.post(`/equipos/${id}/fotos`, formData),
+	compatibleList: (id: string) => api.get<EquipoCompatibleRead[]>(`/equipos/${id}/compatible-con`),
+	compatibleCreate: (id: string, data: EquipoCompatibleCreate) =>
+		api.post<EquipoCompatibleRead>(`/equipos/${id}/compatible-con`, data),
+	compatibleDelete: (componenteId: string, relacionId: string) =>
+		api.delete(`/equipos/${componenteId}/compatible-con/${relacionId}`),
 };
